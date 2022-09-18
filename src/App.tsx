@@ -151,6 +151,10 @@ function App() {
 		rect.center();
 		mainCanvasRef.current?.sendToBack(rect);
 
+		// zoom out if rect would be too big for window
+		if (width >= window.innerWidth || height >= window.innerHeight)
+			mainCanvasRef.current?.zoomToPoint(rect.getCenterPoint(), 0.7);
+
 		mainRectRef.current = rect;
 	}, [width, height]);
 
