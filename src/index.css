@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;

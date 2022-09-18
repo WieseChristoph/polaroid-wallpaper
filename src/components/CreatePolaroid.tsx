@@ -16,6 +16,7 @@ function CreatePolaroid({
 }) {
 	const polaroidCanvasRef = useRef<fabric.Canvas>();
 	const currentImageRef = useRef<fabric.Object>();
+	const imageInputRef = useRef<HTMLInputElement>(null);
 
 	function handleAddImage(file: File) {
 		if (!file) return;
@@ -61,6 +62,9 @@ function CreatePolaroid({
 			currentImageRef.current = undefined;
 		}
 
+		// reset input field
+		if (imageInputRef.current) imageInputRef.current.value = "";
+
 		return dataUrl;
 	}
 
@@ -89,9 +93,7 @@ function CreatePolaroid({
 
 	return (
 		<div
-			className={`transition-all" + ${
-				isOpen ? "visible opacity-100" : "invisible opacity-0"
-			}`}
+			className={`transition-all + ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
 		>
 			{/* blurred black background */}
 			<div className="fixed inset-0 bg-black/60" aria-hidden="true" />
@@ -111,10 +113,16 @@ function CreatePolaroid({
 								</label>
 								<input
 									id="imageUpload"
+									className="block w-full text-sm rounded-lg border cursor-pointer focus:outline-none bg-neutral-800 border-gray-600 placeholder-gray-400"
+									aria-describedby="file_input_help"
+									ref={imageInputRef}
 									type="file"
 									accept="image/png, image/jpeg"
 									onChange={(e) => handleAddImage(e.target.files?.item(0)!)}
 								/>
+								<p className="mt-1 text-sm text-gray-300" id="file_input_help">
+									PNG or JPG.
+								</p>
 							</div>
 							<div className="flex flex-row gap-5">
 								<button

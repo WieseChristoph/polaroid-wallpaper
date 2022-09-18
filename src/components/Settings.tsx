@@ -19,8 +19,8 @@ function Settings({
 				<ul className="grid grid-cols-3 gap-5 items-center">
 					<li>
 						<button
-							onClick={onAddPolaroidClick}
 							className="flex items-center p-2 text-base font-normal rounded-lg hover:bg-neutral-700"
+							onClick={onAddPolaroidClick}
 						>
 							<BiImageAdd className="text-5xl" />
 						</button>
@@ -28,16 +28,16 @@ function Settings({
 					<li className="h-full">
 						<div className="flex items-center h-full p-2 text-base font-normal rounded-lg hover:bg-neutral-700">
 							<input
-								type="color"
 								className="h-full hover:cursor-pointer"
+								type="color"
 								onChange={(e) => onBackgroundColorChange(e.target.value)}
 							/>
 						</div>
 					</li>
 					<li>
 						<button
-							onClick={onDownloadClick}
 							className="flex items-center p-2 text-base font-normal rounded-lg hover:bg-neutral-700"
+							onClick={onDownloadClick}
 						>
 							<BiDownload className="text-5xl" />
 						</button>
