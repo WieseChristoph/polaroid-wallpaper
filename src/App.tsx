@@ -44,6 +44,8 @@ function App() {
 	function handleDownloadClick() {
 		if (!mainCanvasRef.current) return;
 
+		// save viewport
+		const prevViewport = mainCanvasRef.current.viewportTransform;
 		// reset transforms and zooms just for the export
 		mainCanvasRef.current.viewportTransform = [1, 0, 0, 1, 0, 0];
 
@@ -60,6 +62,9 @@ function App() {
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
+
+		// restore viewport
+		mainCanvasRef.current.viewportTransform = prevViewport;
 	}
 
 	useEffect(() => {
