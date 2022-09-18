@@ -1,6 +1,5 @@
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
-import "./App.css";
 import CreatePolaroid from "./components/CreatePolaroid";
 import Settings from "./components/Settings";
 import KeyHints from "./components/KeyHints";
