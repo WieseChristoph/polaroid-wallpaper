@@ -173,7 +173,7 @@ function Editor({ width = 1920, height = 1080 }) {
 			</div>
 
 			<Settings
-				className="fixed right-0 bottom-0 p-4"
+				className="fixed right-0 bottom-0 p-4 z-10"
 				onAddPolaroidClick={() => setisPolaroidModalOpen(true)}
 				onBackgroundColorChange={(newColor) =>
 					mainRectRef.current?.set("fill", newColor) && mainCanvasRef.current?.renderAll()

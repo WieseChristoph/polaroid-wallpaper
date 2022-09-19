@@ -98,7 +98,7 @@ function CreatePolaroid({
 			{/* blurred black background */}
 			<div className="fixed inset-0 bg-black/60" aria-hidden="true" />
 			{/* modal */}
-			<div className="fixed inset-0 grid place-items-center overflow-y-auto p-4">
+			<div className="z-50 fixed inset-0 grid place-items-center overflow-y-auto p-4">
 				<div className="rounded bg-neutral-800 p-4">
 					<h1 className="border-b border-white px-4 pb-2 text-3xl font-semibold">
 						Neues Polaroid hinzufügen
