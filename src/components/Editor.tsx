@@ -5,14 +5,15 @@ import Settings from "../components/Settings";
 import KeyHints from "../components/KeyHints";
 
 function Editor({ width = 1920, height = 1080 }) {
+	const [mainObject, setMainObject] = useState<fabric.Object>();
 	const [isPolaroidModalOpen, setisPolaroidModalOpen] = useState(false);
+	const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
 
 	const mainCanvasRef = useRef<fabric.Canvas>();
-	const mainRectRef = useRef<fabric.Object>();
 
 	function handleAddPolaroid(newPolaroid: string) {
 		fabric.Image.fromURL(newPolaroid, (img) => {
-			const mainRectCenter = mainRectRef.current?.getCenterPoint();
+			const mainRectCenter = mainObject?.getCenterPoint();
 			// set image position
 			img.left = mainRectCenter?.x ?? 200 - 200;
 			img.top = mainRectCenter?.y ?? 200 - 200;
@@ -54,8 +55,8 @@ function Editor({ width = 1920, height = 1080 }) {
 			format: "png",
 			width: width,
 			height: height,
-			left: mainRectRef.current?.left,
-			top: mainRectRef.current?.top,
+			left: mainObject?.left,
+			top: mainObject?.top,
 		})!;
 		document.body.appendChild(link);
 		link.click();
@@ -143,28 +144,54 @@ function Editor({ width = 1920, height = 1080 }) {
 	}, []);
 
 	useEffect(() => {
-		// delete previous rect
-		mainCanvasRef.current?.remove(mainCanvasRef.current.getObjects().at(-1)!);
+		// set image or rect as new main object
+		if (backgroundImage) {
+			const reader = new FileReader();
+			reader.onload = (f) => {
+				const data = f.target?.result?.toString();
+				fabric.Image.fromURL(
+					data!,
+					(img) => {
+						// scale to correct size
+						img.scaleX = width / (img.width ?? 1);
+						img.scaleY = height / (img.height ?? 1);
 
-		const rect = new fabric.Rect({
-			width: width,
-			height: height,
-			backgroundColor: "black",
-			selectable: false,
-			hasControls: false,
-			hoverCursor: "auto",
-		});
+						setMainObject(img);
+					},
+					{
+						selectable: false,
+						hasControls: false,
+						hoverCursor: "auto",
+					}
+				);
+			};
+			reader.readAsDataURL(backgroundImage);
+		} else {
+			const rect = new fabric.Rect({
+				width: width,
+				height: height,
+				backgroundColor: "black",
+				selectable: false,
+				hasControls: false,
+				hoverCursor: "auto",
+			});
 
-		mainCanvasRef.current?.add(rect);
-		rect.center();
-		mainCanvasRef.current?.sendToBack(rect);
+			setMainObject(rect);
+		}
+	}, [width, height, backgroundImage]);
 
-		// zoom out if rect would be too big for window
-		if (width >= window.innerWidth || height >= window.innerHeight)
-			mainCanvasRef.current?.zoomToPoint(rect.getCenterPoint(), 0.7);
+	useEffect(() => {
+		if (!mainCanvasRef.current || !mainObject) return;
 
-		mainRectRef.current = rect;
-	}, [width, height]);
+		mainCanvasRef.current.add(mainObject);
+		mainObject.center();
+		mainCanvasRef.current.sendToBack(mainObject);
+
+		// cleanup
+		return () => {
+			if (mainObject) mainCanvasRef.current?.remove(mainObject);
+		};
+	}, [mainObject]);
 
 	return (
 		<div className="h-screen">
@@ -176,7 +203,10 @@ function Editor({ width = 1920, height = 1080 }) {
 				className="fixed right-0 bottom-0 p-4 z-10"
 				onAddPolaroidClick={() => setisPolaroidModalOpen(true)}
 				onBackgroundColorChange={(newColor) =>
-					mainRectRef.current?.set("fill", newColor) && mainCanvasRef.current?.renderAll()
+					mainObject?.set("fill", newColor) && mainCanvasRef.current?.renderAll()
+				}
+				onBackgroundImageChange={(newBackgroundImage) =>
+					setBackgroundImage(newBackgroundImage)
 				}
 				onDownloadClick={() => handleDownloadClick()}
 			/>

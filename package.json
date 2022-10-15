@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tippyjs/react": "^4.2.6",
     "@types/fabric": "^4.5.12",
     "fabric": "^5.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
