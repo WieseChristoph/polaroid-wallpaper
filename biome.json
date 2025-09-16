@@ -1,0 +1,92 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": true,
+        "includes": [
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.mjs",
+            "**/*.json",
+            "!**/*.min.js",
+            "!node_modules",
+            "!.next",
+            "!dist",
+            "!build"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "attributePosition": "multiline"
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "noUnusedImports": "error",
+                "noUnusedFunctionParameters": "error",
+                "noUnusedVariables": "error"
+            },
+            "complexity": {
+                "noForEach": "off",
+                "noBannedTypes": "off"
+            },
+            "style": {
+                "noEnum": "error",
+                "useBlockStatements": "error"
+            },
+            "performance": {
+                "noDelete": "error",
+                "noAccumulatingSpread": "off"
+            },
+            "suspicious": {
+                "noConsole": {
+                    "level": "error",
+                    "options": {
+                        "allow": ["error", "info", "warn"]
+                    }
+                },
+                "noDebugger": "error"
+            },
+            "a11y": {
+                "noSvgWithoutTitle": "off",
+                "useKeyWithClickEvents": "off",
+                "noStaticElementInteractions": "off",
+                "useButtonType": "off"
+            }
+        },
+        "domains": {
+            "next": "recommended",
+            "react": "recommended"
+        }
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "trailingCommas": "all",
+            "semicolons": "always"
+        }
+    },
+    "json": {
+        "parser": {
+            "allowComments": true
+        }
+    }
+}
