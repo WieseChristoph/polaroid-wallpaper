@@ -100,7 +100,10 @@ function CreatePolaroidOverlay({ isOpen, onCreateClick, onCancelClick }: CreateP
     return (
         <div className={`transition-all + ${isOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}>
             {/* blurred black background */}
-            <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
+            <div
+                className="fixed inset-0 bg-black/60"
+                aria-hidden="true"
+            />
             {/* modal */}
             <div className="z-50 fixed inset-0 grid place-items-center overflow-y-auto p-4">
                 <div className="rounded bg-neutral-800 p-4">
@@ -112,7 +115,10 @@ function CreatePolaroidOverlay({ isOpen, onCreateClick, onCancelClick }: CreateP
 
                         <div className="flex flex-col gap-5 mt-5 w-full items-center">
                             <div className="flex flex-col">
-                                <label htmlFor="imageUpload" className="text-lg">
+                                <label
+                                    htmlFor="imageUpload"
+                                    className="text-lg"
+                                >
                                     Bild Auswählen:
                                 </label>
                                 <input
@@ -124,7 +130,10 @@ function CreatePolaroidOverlay({ isOpen, onCreateClick, onCancelClick }: CreateP
                                     accept="image/png, image/jpeg"
                                     onChange={(e) => handleAddImage(e.target.files?.item(0) ?? null)}
                                 />
-                                <p className="mt-1 text-sm text-gray-300" id="file_input_help">
+                                <p
+                                    className="mt-1 text-sm text-gray-300"
+                                    id="file_input_help"
+                                >
                                     PNG or JPG.
                                 </p>
                             </div>
